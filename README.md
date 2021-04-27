@@ -10,7 +10,7 @@ Therefore, it allows containing each table in the relational database as a CSV f
  
 ### Output ###
 1. CSV files representing nodes and edges in Neo4j.
-2. Neo4j insert queries for generated files in order. (e.g., [neo4j_insert_queries_mimic.txt](neo4j_insert/neo4j_insert_queries_mimic.txt))
+2. Neo4j insert queries for generated files in order. (e.g., [neo4j_insert_queries_mimic.txt](neo4j_query/neo4j_insert_queries_mimic.txt))
 
 ### Example config file ###
 It fully describes the nodes, relationships, their attributes, and directions.
