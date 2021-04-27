@@ -1,0 +1,151 @@
+{
+  "input_file_path": "F:\\MIMIC\\mimic-iii-clinical-database-1.4\\CSV_FILES\\",
+  "output_file_path": "F:\\MIMIC\\mimic-iii-clinical-database-1.4\\CSV_FILES\\GEN\\",
+  "files": [
+    {
+      "file_name": "PATIENTS_1000.csv",
+      "file_alias": "",
+      "name": "PATIENT",
+      "isNode": true,
+      "indexes": ["SUBJECT_ID"],
+      "data_types": [
+        {"int": ["SUBJECT_ID","EXPIRE_FLAG"]},
+        {"float": []}
+      ],
+      "skips":["ROW_ID"],
+      "foreign_keys": []
+    },
+    {
+      "file_name": "ADMISSIONS_1000.csv",
+      "file_alias": "",
+      "name": "ADMISSION",
+      "isNode": true,
+      "indexes": ["HADM_ID"],
+      "data_types": [
+        {"int": ["HADM_ID","SUBJECT_ID", "HOSPITAL_EXPIRE_FLAG","HAS_CHARTEVENTS_DATA"]},
+        {"float": []}
+      ],
+      "skips":["ROW_ID"],
+      "foreign_keys": [
+        {
+          "id":["HADM_ID","HADM_ID"],
+          "from_id":["SUBJECT_ID","SUBJECT_ID"],
+          "from_table":"PATIENT",
+          "to_table":"ADMISSION",
+          "data_type":"int",
+          "name":["ADMIT", false],
+          "attr": ["ADMITTIME", "DISCHTIME", "DEATHTIME", "EDREGTIME", "EDOUTTIME"]
+        }]
+    },
+    {
+      "file_name": "DRGCODES_1000.csv",
+      "file_alias": "",
+      "name": "DRGCODE",
+      "isNode": true,
+      "indexes": ["DRGCODE_ID"],
+      "data_types": [
+        {"int": ["DRGCODE_ID","DRG_CODE", "HADM_ID"]},
+        {"float": []}
+      ],
+      "skips":["SUBJECT_ID"],
+      "foreign_keys": [
+        {
+          "id":["DRGCODE_ID","DRGCODE_ID"],
+          "from_id":["HADM_ID","HADM_ID"],
+          "from_table":"ADMISSION",
+          "to_table":"DRGCODE",
+          "data_type":"int",
+          "name":["ADMIT_DRUG", false],
+          "attr": []
+        }]
+    },
+    {
+      "file_name": "SERVICES_1000.csv",
+      "file_alias": "",
+      "name": "SERVICE",
+      "isNode": true,
+      "indexes": ["SERVICE_ID"],
+      "data_types": [
+        {"int": ["SERVICE_ID", "HADM_ID"]},
+        {"float": []}
+      ],
+      "skips":["SUBJECT_ID"],
+      "foreign_keys": [
+        {
+          "id":["SERVICE_ID","SERVICE_ID"],
+          "from_id":["HADM_ID","HADM_ID"],
+          "from_table":"ADMISSION",
+          "to_table":"SERVICE",
+          "data_type":"int",
+          "name":["ADMIT_SERVICE", false],
+          "attr": ["TRANSFERTIME"]
+        }]
+    },
+    {
+      "file_name": "PRESCRIPTIONS_ADMIT_1000.csv",
+      "file_alias": "a_",
+      "name": "PRESCRIPTION",
+      "isNode": true,
+      "indexes": ["PRES_ID"],
+      "data_types": [
+        {"int": ["PRES_ID", "HADM_ID"]},
+        {"float": []}
+      ],
+      "skips":["SUBJECT_ID", "ICUSTAY_ID"],
+      "foreign_keys": [
+        {
+          "id":["PRES_ID","PRES_ID"],
+          "from_id":["HADM_ID","HADM_ID"],
+          "from_table":"ADMISSION",
+          "to_table":"PRESCRIPTION",
+          "data_type":"int",
+          "name":["ADMIT_PRESCRIPTION", false],
+          "attr": ["STARTDATE","ENDDATE"]
+        }]
+    },
+    {
+      "file_name": "ICUSTAYS_1000.csv",
+      "file_alias": "",
+      "name": "ICUSTAY",
+      "isNode": true,
+      "indexes": ["ICUSTAY_ID"],
+      "data_types": [
+        {"int": ["ICUSTAY_ID","HADM_ID","FIRST_WARDID","LAST_WARDID"]},
+        {"float": ["LOS"]}
+      ],
+      "skips":["ROW_ID", "SUBJECT_ID"],
+      "foreign_keys": [
+        {
+          "id":["ICUSTAY_ID","ICUSTAY_ID"],
+          "from_id":["HADM_ID","HADM_ID"],
+          "from_table":"ADMISSION",
+          "to_table":"ICUSTAY",
+          "data_type":"int",
+          "name":["ADMIT_ICU", false],
+          "attr": ["INTIME", "OUTTIME"]
+        }]
+    },
+    {
+      "file_name": "PRESCRIPTIONS_ICUSTAY_1000.csv",
+      "file_alias": "b_",
+      "name": "PRESCRIPTION",
+      "isNode": true,
+      "indexes": ["PRES_ID"],
+      "data_types": [
+        {"int": ["PRES_ID","ICUSTAY_ID"]},
+        {"float": []}
+      ],
+      "skips":["SUBJECT_ID", "HADM_ID"],
+      "foreign_keys": [
+        {
+          "id":["PRES_ID","PRES_ID"],
+          "from_id":["ICUSTAY_ID","ICUSTAY_ID"],
+          "from_table":"ICUSTAY",
+          "to_table":"PRESCRIPTION",
+          "data_type":"int",
+          "name":["ICU_PRESCRIPTION", false],
+          "attr": ["STARTDATE","ENDDATE"]
+        }]
+    }
+  ]
+}
