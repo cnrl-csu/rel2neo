@@ -2,6 +2,10 @@
 
 A Python library to convert a relational database to a Neo4j graph database. 
 
+### Pipeline ###
+
+![](misc/rel2neo.png)
+
 ### Input ###
 
 1. The current version of the Rel2Neo supports CSV files. 
